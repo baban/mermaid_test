@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>watch</title>
+</head>
+<body>
+  <script src="https://api.apiary.io/seeds/embed.js"></script>
+  <script>
+    var embed = new Apiary.Embed({
+      apiBlueprint: "FORMAT: 1A\nHOST: www.m-standard.co.jp\n\n# mypage watch list api\n\n建物・検索条件のウォッチ機能を提供するためのAPIです\n\n# Group WatchList\n\n## 建物ウォッチ [/api/v1/me/watch_list/properties]\n\n## 取得 [GET]\n\n建物ウォッチを取得します\n\n+ Request (application/json)\n    + Body\n\n            {\n\n            }\n\n+ Response 200 (application/json)\n    + Attributes\n        + property_watches (array[PropertyWatch])\n\n## 登録 [POST]\n\n建物ウォッチを追加します\n\n+ Request (application/json)\n    + Attributes (PropertyWatchCreate)\n\n    + Body\n\n            {\n                \"property_id\": 123456,\n                \"rent\": true,\n                \"buy\": true\n            }\n+ Response 201 (application/json)\n条件追加に成功した時のレスポンス (登録結果を返します)\n    + Attributes (PropertyWatch)\n\n    + Body\n\n        {\n            \"property_id\": 123456,\n            \"rent\": true,\n            \"buy\": true\n        }\n\n+ Response 400 (application/json)\nrent / buy 両方とも false でリクエストが送られた時\n\n    + Body\n\n            {\n                \"message\": \"bad request\"\n            }\n\n+ Response 401 (application/json)\n認証できていない状態でAPIをコールした時のレスポンス\n\n    + Body\n\n            {\n                \"message\": \"unauthorized\"\n            }\n\n+ Response 403 (application/json)\n上限を超えてAPIをコールした時のレスポンス\n\n    + Body\n\n            {\n                \"message\": \"ウォッチ条件は50件までしか保存できません\"\n            }\n\n## 削除 [DELETE]\n\n建物ウォッチを削除します\n\n+ Request (application/json)\n    + Attributes\n        + property_id (number, required) - ウォッチを削除する建物ID}\n    + Body\n\n            {\n                \"property_id\": 12345\n            }\n\n+ Response 200 (application/json)\n+ Response 401 (application/json)\n+ Response 404 (application/json)\n\n## 検索条件ウォッチ [/api/v1/me/watch_list/search_conditions]\n\n## 取得 [GET]\n\n検索条件ウォッチを取得します\n\n+ Request (application/json)\n    + Body\n\n            {\n\n            }\n\n+ Response 200 (application/json)\n    + Attributes\n        + search_condition_watches (array[SearchConditionWatch])\n\n## 登録 [POST]\n\n検索条件ウォッチを追加します\n\n+ Request (application/json)\n    + Attributes\n        + serialize_search_condition (string, required)\n\n    + Body\n\n            {\n                \"serialize_search_condition\": \"{}\"\n            }\n+ Response 201 (application/json)\n条件追加に成功した時のレスポンス (登録済みの検索条件ウォッチを渡してもこのレスポンスを返します)\n    + Attributes (SearchConditionWatch)\n\n    + Body\n\n            {\n                \"id\": 1234\n            }\n\n+ Response 401 (application/json)\n認証できていない状態でAPIをコールした時のレスポンス\n\n    + Body\n\n            {\n                \"message\": \"unauthorized\"\n            }\n\n+ Response 403 (application/json)\n上限を超えてAPIをコールした時のレスポンス\n\n    + Body\n\n            {\n                \"message\": \"ウォッチは50件までしか保存できません\"\n            }\n\n## 削除 [DELETE]\n\n検索条件ウォッチを削除します\n\n+ Request (application/json)\n    + Attributes\n      + search_condition_watch_id (number, required) - 削除する検索条件ウォッチのID\n\n    + Body\n            {\n                \"search_condition_watch_id\": 5\n            }\n\n+ Response 200 (application/json)\n    + Attributes ()\n    + Body\n\n            {\n                \"message\": \"success\"\n            }\n\n+ Response 401 (application/json)\n認証できていない状態でAPIをコールした時のレスポンス\n\n    + Body\n\n            {\n                \"message\": \"unauthorized\"\n            }\n\n+ Response 404 (application/json)\n存在しない・自分に紐付いていない検索条件ウォッチのIDを指定した時のレスポンス\n\n    + Body\n\n            {\n                \"message\": \"not found\"\n            }\n\n# Data Structures\n\n## PropertyWatch\n+ property_id: 1 (number) - ID\n+ property_name: `六本木ヒルズレジデンス` (string) - 建物名\n+ property_image_url: `https://assets.m-standard.co.jp/public/properties/0001/thumb/w750h460/image.jpg` (string) - 建物URL\n+ layouts: `1R`, `1K`,`3LDK` (array[string]) - 間取り\n+ age: (Age) - 築年数\n+ nearest_station: (NearestStation) - 最寄り駅\n+ rent: `true` (boolean) - 賃貸部屋をウォッチするか\n+ buy: `true` (boolean) - 販売中部屋をウォッチするか\n+ created_at: `yyyy-MM-ddThh:mm:ss.SSSZ` (string) - when created\n+ updated_at: `yyyy-MM-ddThh:mm:ss.SSSZ` (string) - when updated\n\n## PropertyWatchCreate\n+ property_id (number, required)\n    ウォッチする建物のID\n+ rent (boolean, optional)\n    賃貸物件をウォッチするか。ウォッチする場合はtrue\n    + Default: true\n+ buy (boolean, optional)\n    売買物件をウォッチするか。ウォッチする場合はtrue\n    + Default: true\n\n## Age\n+ year: 2007 (number) - 築年\n+ month: 12 (number) - 築月\n+ age: 13 (number) - 築年数\n\n## NearestStation\n+ railway: (Railway) - 路線\n+ station: (Station) - 駅\n+ walk_minute: 5 (number) - 徒歩時間\n\n## Railway\n+ name: `東京メトロ千代田線` (string) - 路線名\n+ query: `28005_L` (string) - リンク時のパスパラメータ\n\n## Station\n+ name: `乃木坂駅` (string) - 駅名\n+ query: `2800516_S` (string) - リンク時のパス\n\n## SearchConditionWatch\n+ search_condition_watch_id: 1 (number) - ID\n+ search_type: `rent` (string) - 検索種別 (rent か buy )\n+ search_condition: `港区 1LDK` (string) - 表示用の検索条件\n+ search_condition_query: `34_CI/5_JA/` (string) - URLに付与する検索条件\n+ created_at: `yyyy-MM-ddThh:mm:ss.SSSZ` (string) - when created\n+ updated_at: `yyyy-MM-ddThh:mm:ss.SSSZ` (string) - when updated\n\n## SearchConditionWatchCreateParams\n+ serialize_search_condition: ``  (string,required)\n+ search_type: `rent` (string, required) - 検索種別 (rent か buy )"
+    });
+
+    if (false) {
+        var changed = null;
+        var xhrChanged = new XMLHttpRequest();
+        var xhrData = new XMLHttpRequest();
+        setInterval(function() {
+            xhrChanged.open('GET', window.location.href + "/changed", true);
+            xhrChanged.send();
+
+            xhrChanged.onreadystatechange = function() {
+                if (xhrChanged.readyState === 4 && xhrChanged.status === 200) {
+                    if (!changed) {
+                        changed = xhrChanged.responseText;
+                    }
+                    if (changed != xhrChanged.responseText) {
+                        changed = xhrChanged.responseText;
+                        xhrData.open('GET', window.location.href + "/source", true);
+                        xhrData.send();
+
+                        xhrData.onreadystatechange = function() {
+                            if (xhrData.readyState === 4 && xhrData.status === 200) {
+                                window[embed.adaptee.id].contentWindow.postMessage({"origin": "Apiary.Embed", "eventType": "anonymousPreview", "data": {"code": xhrData.responseText}}, '*');
+                            }
+                        }
+                    }
+                }
+            }
+        }, 1000);
+    }
+  </script>
+</body>
+</html>
