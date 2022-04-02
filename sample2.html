@@ -1,1 +1,21 @@
 <em>建物・検索条件</em>のウォッチ機能を提供するためのAPIです
+<div class="mermaid">
+sequenceDiagram
+    actor U as User
+    participant B as Browser
+    participant S as MS_Server
+    participant M as Mailer
+    activate B
+    B->>+S: フォームページをリクエスト(/sell/entry_inquiry/)
+    deactivate B
+    S-->>-B: フォームページを返す
+    activate B
+    B->>+U: フォームのページ
+    U->>U: 物件情報とユーザーの連絡先を登録
+    U-->>-B: 送信
+    B->>+U: 確認ページをレンダリング
+    U->>U: 送信確認画面を確認
+    U-->>-B: 送信
+    deactivate B
+</div>
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
