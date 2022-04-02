@@ -1,3 +1,4 @@
+
 ```mermaid
 sequenceDiagram
     actor U as User
@@ -22,7 +23,7 @@ sequenceDiagram
     M-->>M: パスワード設定メール送信
     deactivate M
     S-->>-B: 返信
-    B->>+U: 完了ページ
+    B->>+U: 完了ページ#9829;
     U-->>-B: 面談予約画面
     deactivate B
 ```
