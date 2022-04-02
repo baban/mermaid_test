@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <title>テスト</title>
-    <style>
-    .messageText {
-        fill: black;
-        stroke: none;
-        font-size: 11px;
-    }
-    </style>
-</head>
-<body>
-<em>建物・検索条件</em>のウォッチ機能を提供するためのAPIです
-<div class="mermaid">
+```mermaid
 sequenceDiagram
     actor U as User
     participant B as Browser
@@ -40,17 +25,4 @@ sequenceDiagram
     B->>+U: 完了ページ
     U-->>-B: 面談予約画面
     deactivate B
-</div>
-<script>
-    mermaid.sequenceConfig = {
-        diagramMarginX: 30,
-        diagramMarginY: 5,
-        actorFontSize: 10,
-        boxTextMargin: 0,
-        noteMargin: 10,
-        messageMargin: 5,
-        mirrorActors: true
-    };
-</script>
-<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
-</body>
+```
