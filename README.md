@@ -5,7 +5,7 @@ sequenceDiagram
     participant S as Server
     participant M as Mailer
     activate B
-    B->>+S: フォームページをリクエスト(/sell/entry_inquiry/)
+    B->>+S: フォームページをリクエスト(GET /sell/entry_inquiry/)
     deactivate B
     S-->>-B: フォームページを返す
     activate B
