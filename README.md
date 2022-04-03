@@ -27,7 +27,7 @@ sequenceDiagram
     deactivate B
 ```
 
-```uml
+```puml
 @startuml
 title SELL反響会員化
 
