@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>テスト</title>
+    <style>
+    </style>
+</head>
+<body>
+<em>建物・検索条件</em>のウォッチ機能を提供するためのAPIです
+<div class="mermaid">
+	erDiagram
+	CUSTOMER ||--o{ ORDER : places
+	CUSTOMER {
+			string name
+			string custNumber
+			string sector
+	}
+	ORDER ||--|{ LINE-ITEM : contains
+	ORDER {
+			int orderNumber
+			string deliveryAddress
+	}
+	LINE-ITEM {
+			string productCode
+			int quantity
+			float pricePerUnit
+	}
+</div>
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</body>
