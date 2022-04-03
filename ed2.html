@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>テスト</title>
+    <style>
+    </style>
+</head>
+<body>
+<em>建物・検索条件</em>のウォッチ機能を提供するためのAPIです
+<div class="mermaid">
+erDiagram
+	members {
+		bigint id
+	}
+	member_rooms {
+		bigint id
+		bigint member_id
+	}
+	reservations {
+		bigint id
+		bigint member_id
+		bigint member_room_id
+		integer place
+		datetime start_at
+		booloean is_more_than_2_years
+		string campaign_code
+	}
+	members ||--o{ member_rooms: member_id
+	members ||--o{ reservations: member_id
+	member_rooms |o--o| reservations: member_room_id
+</div>
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</body>
